@@ -3,4 +3,4 @@ enableCORS = false
 enableXsrfProtection = false
 
 [runner]
-pythonVersion = "3.8"
+pythonVersion = "3.10"
