@@ -714,10 +714,10 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 ## 📧 Contact
 
-- **Author**: Your Name
-- **Email**: your.email@example.com
-- **LinkedIn**: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
-- **GitHub**: [@yourusername](https://github.com/yourusername)
+- **Author**: Huỳnh Vĩ Khang
+- **Email**: huynhvikhang6a13@gmail.com
+- **LinkedIn**: [Huỳnh Vĩ Khang](https://linkedin.com/in/yourprofile)
+- **GitHub**: [@netprtony](https://github.com/netprtony)
 
 ---
 
