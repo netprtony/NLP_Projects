@@ -1,6 +1,13 @@
 [server]
-enableCORS = false
-enableXsrfProtection = false
+headless = true
+port = 8502
 
 [runner]
 pythonVersion = "3.10"
+
+[theme]
+primaryColor = "#1f77b4"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f0f2f6"
+textColor = "#262730"
+font = "sans serif"
