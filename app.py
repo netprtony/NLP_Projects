@@ -68,8 +68,11 @@ def predict_sentiment(text, model, tokenizer, sequence_length=128):
     input_ids = vectorize_sentiment(processed_text, tokenizer, sequence_length)
     with torch.no_grad():
         outputs = model(input_ids)
+        probs = torch.softmax(outputs, dim=1)
         _, pred = torch.max(outputs, dim=1)
-    return "Positive 😊" if pred.item() == 1 else "Negative 😔"
+    confidence = probs[0, pred.item()].item() * 100
+    sentiment_label = "Positive 😊" if pred.item() == 1 else "Negative 😔"
+    return sentiment_label, confidence
 
 # ================= Hàm dự đoán cho EmotionClassifier =================
 def predict_emotion(sentence, model, tokenizer, device):
@@ -78,9 +81,11 @@ def predict_emotion(sentence, model, tokenizer, device):
     encoded = {key: val.to(device) for key, val in encoded.items()}
     with torch.no_grad():
         output = model(encoded["input_ids"])
+        probs = torch.softmax(output, dim=1)
         prediction = torch.argmax(output, dim=1).cpu().item()
+    confidence = probs[0, prediction].item() * 100
     emotions = ["Sadness 😢", "Joy 😄", "Love 😍", "Anger 😣", "Fear 😱", "Surprise 😮"]
-    return emotions[prediction]
+    return emotions[prediction], confidence
 
 # ================= Kiểm tra file và tải mô hình =================
 # Đường dẫn đến file mô hình và tokenizer
@@ -165,12 +170,12 @@ user_input = st.text_area("Or enter your own sentence:", value=selected_example,
 if st.button("Predict 🔍"):
     if user_input:
         # Dự đoán với SentimentClassifier
-        sentiment_pred = predict_sentiment(user_input, sentiment_model, sentiment_tokenizer, sequence_length)
-        st.success(f"**Sentiment Prediction**: {sentiment_pred}")
+        sentiment_pred, sentiment_conf = predict_sentiment(user_input, sentiment_model, sentiment_tokenizer, sequence_length)
+        st.success(f"**Sentiment Prediction**: {sentiment_pred} ({sentiment_conf:.2f}%)")
 
         # Dự đoán với EmotionClassifier
-        emotion_pred = predict_emotion(user_input, emotion_model, emotion_tokenizer, device)
-        st.success(f"**Emotion Prediction**: {emotion_pred}")
+        emotion_pred, emotion_conf = predict_emotion(user_input, emotion_model, emotion_tokenizer, device)
+        st.success(f"**Emotion Prediction**: {emotion_pred} ({emotion_conf:.2f}%)")
     else:
         st.error("⚠️ Please enter or select a sentence to predict!")
 
