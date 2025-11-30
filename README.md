@@ -427,7 +427,7 @@ Softmax → [sadness, joy, love, anger, fear, surprise]
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/nlp-projects.git
+git clone https://github.com/netprtony/NLP_Projects.git
 cd nlp-projects
 
 # Create virtual environment
